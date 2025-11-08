@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Registration | KGRCET</title>
+  <link rel="stylesheet" href="assets/css/styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav">
+      <a class="brand" href="index.html"><img class="brand-logo" src="https://media.licdn.com/dms/image/v2/C560BAQEPDn42HSa09Q/company-logo_200_200/company-logo_200_200/0/1632826733661/kg_reddy_college_of_engineering_and_technology_logo?e=2147483647&v=beta&t=D3hhrwm1mME-S0_dIqQhLrUIr2U_2A0jCbt7PNNnNpc" alt="KGRCET Logo" /><div class="brand-title">KGRCET</div></a>
+      <nav class="nav-links" aria-label="Primary Navigation">
+        <a href="index.html">Home</a>
+        <a href="clubs.html">Clubs</a>
+        <a href="sports.html">Sports</a>
+        <a href="about.html">About KGR</a>
+        <a href="contacts.html">Contact</a>
+        <a href="registration.html">Registration</a>
+      </nav>
+    </div>
+  </header>
+  <main class="container page">
+    <div class="section-header"><h2>Ekarus Registration</h2></div>
+    <form id="regForm" class="form" autocomplete="on">
+      <div id="formAlert" class="alert hidden"></div>
+      <div class="form-row">
+        <div class="form-group">
+          <label for="studentName">Student Name</label>
+          <input id="studentName" name="studentName" type="text" placeholder="Your full name" required />
+        </div>
+        <div class="form-group">
+          <label for="studentCollege">Student College</label>
+          <input id="studentCollege" name="studentCollege" type="text" placeholder="Your college name" required />
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label for="registrationFor">Registration For</label>
+          <select id="registrationFor" name="registrationFor" required>
+            <option value="">Select event</option>
+            <option value="ekarus-tech">Ekarus Tech</option>
+            <option value="sports">Sports</option>
+            <option value="cultural">Cultural</option>
+          </select>
+          <div class="help">This can be expanded later from Supabase.</div>
+        </div>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input id="email" name="email" type="email" placeholder="name@example.com" required />
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Payment QR (placeholder)</label>
+          <div class="card" style="display:flex;align-items:center;justify-content:center;height:160px;">
+            <span class="muted">Replace with actual QR image later</span>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="attachment">Upload ID/Image</label>
+          <input id="attachment" name="attachment" type="file" accept="image/*" required />
+          <div class="help">PNG/JPG up to ~5MB recommended.</div>
+        </div>
+      </div>
+      <div class="form-actions">
+        <button type="submit" class="btn btn-primary">Submit Registration</button>
+        <button type="reset" class="btn btn-outline">Clear</button>
+      </div>
+    </form>
+  </main>
+  <footer class="site-footer"><div class="container">© <span id="year"></span> KGRCET</div></footer>
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+  <script src="assets/js/app.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="assets/js/config.js"></script>
+  <script src="assets/js/supabaseClient.js"></script>
+  <script>
+    (function() {
+      var form = document.getElementById('regForm');
+      var alertBox = document.getElementById('formAlert');
+
+      function showAlert(type, msg) {
+        alertBox.classList.remove('hidden', 'alert-success', 'alert-error');
+        alertBox.classList.add(type === 'success' ? 'alert-success' : 'alert-error');
+        alertBox.textContent = msg;
+      }
+
+      form.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        try {
+          if (!window.SUPABASE) throw new Error('Supabase not ready. Check config.js.');
+          var studentName = document.getElementById('studentName').value.trim();
+          var studentCollege = document.getElementById('studentCollege').value.trim();
+          var registrationFor = document.getElementById('registrationFor').value;
+          var email = document.getElementById('email').value.trim();
+          var file = document.getElementById('attachment').files[0];
+
+          if (!studentName || !studentCollege || !registrationFor || !email || !file) {
+            showAlert('error', 'Please fill all fields and attach an image.');
+            return;
+          }
+
+          var bucket = (window.APP_CONFIG && window.APP_CONFIG.STORAGE_BUCKET_REGISTRATIONS) || 'registrations';
+          var imageUrl = await window.Supa.uploadImageAndGetUrl(file, bucket, 'ids');
+
+          var payload = {
+            id: generateId('reg'),
+            student_name: studentName,
+            student_college: studentCollege,
+            registration_for: registrationFor,
+            email: email,
+            image_url: imageUrl,
+            created_at: new Date().toISOString()
+          };
+
+          var insert = await window.SUPABASE.from('registrations').insert(payload).select();
+          if (insert.error) throw insert.error;
+
+          form.reset();
+          showAlert('success', 'Registration submitted successfully!');
+        } catch (err) {
+          console.error(err);
+          showAlert('error', err.message || 'Submission failed. Try again.');
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
+
+

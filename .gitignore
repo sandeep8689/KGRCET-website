@@ -1,0 +1,23 @@
+# Supabase config with real keys (users should copy from config.example.js)
+assets/js/config.js
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Logs
+*.log
+
+# Temporary files
+*.tmp
+*.temp
+
+

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>KG Reddy College of Engineering and Technology</title>
+  <link rel="stylesheet" href="assets/css/styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav">
+      <a class="brand" href="index.html" aria-label="KGRCET Home">
+        <img class="brand-logo" src="https://media.licdn.com/dms/image/v2/C560BAQEPDn42HSa09Q/company-logo_200_200/company-logo_200_200/0/1632826733661/kg_reddy_college_of_engineering_and_technology_logo?e=2147483647&v=beta&t=D3hhrwm1mME-S0_dIqQhLrUIr2U_2A0jCbt7PNNnNpc" alt="KGRCET Logo" />
+        <div class="brand-title">KG Reddy College of Engineering & Technology</div>
+      </a>
+      <nav class="nav-links" aria-label="Primary Navigation">
+        <a href="index.html">Home</a>
+        <a href="clubs.html">Clubs</a>
+        <a href="sports.html">Sports</a>
+        <a href="about.html">About KGR</a>
+        <a href="contacts.html">Contact</a>
+        <a href="registration.html">Registration</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container page">
+    <section class="hero">
+      <div>
+        <h1>Welcome to KGRCET</h1>
+        <p>Discover excellence in engineering education, vibrant student communities, and opportunities to grow through clubs, sports, events, and innovation.</p>
+        <div class="cta">
+          <a class="btn btn-primary" href="registration.html">Register for Ekarus</a>
+          <a class="btn btn-outline" href="clubs.html">Explore Clubs</a>
+        </div>
+      </div>
+      <div class="card">
+        <h3>At a Glance</h3>
+        <p class="muted">Address: Chilkur Village, Moinabad<br>Landmark: Behind Moinabad Police Station<br>District: Rangareddy </p>
+        <p class="muted">Principal:Dr. S. Sai Satyanarayana Reddy</p>
+        <p class="muted">Accreditations and achievements — updated regularly.</p>
+      </div>
+    </section>
+
+    <div class="section-header">
+      <h2>Upcoming Events</h2>
+      <a href="registration.html">View & Register</a>
+    </div>
+    <section class="grid">
+      <div class="card col-4">
+        <h3>Ekarus Tech Fest</h3>
+        <p class="muted">Join interdepartmental challenges, workshops, and showcases.</p>
+      </div>
+      <div class="card col-4">
+        <h3>Sports Meet</h3>
+        <p class="muted">Tournaments and athletics across multiple disciplines.</p>
+      </div>
+      <div class="card col-4">
+        <h3>Innovation Day</h3>
+        <p class="muted">Celebrate student projects, startups, and research.</p>
+      </div>
+    </section>
+
+    <div class="section-header">
+      <h2>Latest Highlights</h2>
+      <a href="about.html">Know More</a>
+    </div>
+    <section class="grid">
+      <div class="card col-6">
+        <h3>Recent Achievements</h3>
+        <ul>
+          <li>KGRCET team won X Hackathon 2025.</li>
+          <li>MoU with Industry Partner Y for internships.</li>
+          <li>New Center of Excellence inaugurated.</li>
+        </ul>
+      </div>
+      <div class="card col-6">
+        <h3>Announcements</h3>
+        <ul>
+          <li>Admissions open for AY 2025-26.</li>
+          <li>Workshops by Blockchain and Data Science clubs.</li>
+          <li>Upcoming cultural night — stay tuned.</li>
+        </ul>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div>© <span id="year"></span> KGRCET. All rights reserved.</div>
+    </div>
+  </footer>
+
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+  <!-- Load Supabase first -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <!-- Then load your project config (no defer to preserve order) -->
+  <script src="assets/js/config.js"></script>
+  <!-- Initialize client using APP_CONFIG (no defer to preserve order) -->
+  <script src="assets/js/supabaseClient.js"></script>
+  <!-- Finally run app code -->
+  <script src="assets/js/app.js"></script>
+</body>
+<!--
+  Note: Replace placeholder content later via Supabase if desired.
+-->
+</html>
+
+
